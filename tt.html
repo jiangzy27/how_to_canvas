@@ -2,9 +2,32 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>canvas</title>
+    <style>
+        #canvas{
+            background: yellow;
+        }
+    </style>
 </head>
-<body>
 
+<body>
+    <canvas id="canvas"></canvas>
 </body>
 </html>
+<script>
+    draw();
+    function draw() {
+        var ctx = document.getElementById('canvas').getContext('2d');
+        var img = new Image();
+        img.onload = function(){
+            ctx.drawImage(img,0,0,300,150);//充满画布
+            ctx.beginPath();
+            ctx.moveTo(25,25);
+            ctx.lineTo(105,25);
+            ctx.lineTo(25,105);
+            ctx.fill();//不用闭合，自动填充。
+
+        }
+        img.src = 'http://i2.img.969g.com/news/imgx2012/05/24/187_145310_1c34f_lit.jpg';
+    }
+</script>
