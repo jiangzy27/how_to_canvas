@@ -14,11 +14,28 @@ function draw() {
   img.onload = function(){
         ctx.drawImage(img,0,0);
     }
-  img.src = 'https://mdn.mozillademos.org/files/5397/rhino.jpg';
+  img.src = 'http://i2.img.969g.com/news/imgx2012/05/24/187_145310_1c34f_lit.jpg';
  }
 ```
 我引用了一张外部图片，也可以是本地图片，这个随便怎么搞都可以。我们看到这个图片有点稍大了，我们可以在drawImage函数再追加两个参数，
 就可以起到缩放的目的。
 ```
 ctx.drawImage(img,0,0,50,50);//缩放为50x50像素大小的图片。
+```
+好，我们就拿这个超级玛丽作为背景好了，然后再在上面绘制一个三角形咋样？
+```
+function draw() {
+  var ctx = document.getElementById('canvas').getContext('2d');
+  var img = new Image();
+  img.onload = function(){
+        ctx.drawImage(img,0,0,300,150);//充满画布
+            ctx.beginPath();
+            ctx.moveTo(25,25);
+            ctx.lineTo(105,25);
+            ctx.lineTo(25,105);
+            ctx.fill();//不用闭合，自动填充。
+
+    }
+  img.src = 'http://i2.img.969g.com/news/imgx2012/05/24/187_145310_1c34f_lit.jpg';
+ }
 ```
