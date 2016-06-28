@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <style>
+        #myCanvas{
+            background:#ccc;
+            width:500px;
+            height:500px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+    //图片
+    var stage = new createjs.Stage('myCanvas');
+    var gameView = new createjs.Container();
+        stage.addChild(gameView);
+
+    var bitmap = new createjs.Bitmap('1.jpg');
+
+        gameView.addChild(bitmap);
+        createjs.Ticker.setFPS(30);
+        createjs.Ticker.addEventListener('tick',function(){
+
+            stage.update();
+        });
+
+
+</script>
