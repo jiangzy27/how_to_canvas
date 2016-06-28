@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <style>
+        #myCanvas{
+            background:#ccc;
+            width:500px;
+            height:500px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+    /*
+    * 事件
+    * */
+var stage = new createjs.Stage('myCanvas');
+var gameView = new createjs.Container();//声明一个容器
+    stage.addChild(gameView);//将容器冲入舞台
+
+    var Rect = new createjs.Shape();
+    Rect.graphics.beginFill("red");
+    Rect.graphics.drawRect(0,0,100,100);
+
+    gameView.addChild(Rect);
+
+    stage.update();//画出一个图形
+//    Rect.addEventListener('click',function(e){
+//        alert("X="+ e.localX+",Y="+ e.localY);//获得坐标
+//    });
+
+//    Rect.addEventListener("dblclick", function (e) {//双击事件
+//        alert("双击了");
+//    });
+
+createjs.Ticker.setFPS(25);//动画速度
+createjs.Ticker.addEventListener("tick",handlerTick);//trigger自动触发，每秒25帧。
+    var speedX = 10;
+    function handlerTick(){
+        if(Rect.x<=0){//左边界
+            speedX = Math.abs(speedX);
+        }
+        if(Rect.x >= 400-100){
+            speedX = -Math.abs(speedX);
+        }
+        Rect.x += speedX;
+        stage.update();
+    };
+
+</script>

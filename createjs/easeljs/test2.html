@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <style>
+        #myCanvas{
+            background:#ccc;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+    //设置一个舞台，往舞台丢入一个矩形，然后设置一下舞台的属性，更新舞台，显示。
+    var stage = new createjs.Stage("myCanvas");
+    var Rect = new createjs.Shape();
+    Rect.graphics.beginFill('red');
+    Rect.graphics.drawRect(10,10,50,50);
+    stage.addChild(Rect);
+    //设置舞台属性,这个舞台只有一个矩形元素。
+    stage.alpha = 0.1;//舞台半透明
+    stage.x = 100;
+    stage.y = 100;
+    stage.scaleX = 2;//x轴放大两倍
+    stage.y = 0.5;
+    stage.update();
+
+</script>

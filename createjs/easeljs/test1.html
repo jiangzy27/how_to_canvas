@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <style>
+        #myCanvas{
+            background:#ccc;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+//设置一个舞台，然后将一个圆形丢入舞台，更新舞台，显示。
+    var stage = new createjs.Stage("myCanvas");
+    var circle = new createjs.Shape();
+    circle.graphics.beginFill('blue').drawCircle(0,0,40);
+    circle.x = circle.y = 50;
+    stage.addChild(circle);
+    stage.update();
+</script>

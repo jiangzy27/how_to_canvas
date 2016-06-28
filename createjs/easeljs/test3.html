@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <style>
+        #myCanvas{
+            background:#ccc;
+            width:500px;
+            height:500px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+    /*
+    * 如何声明一个整体并移动
+    * */
+
+
+
+    //声明一个子类容器,声明一个实例
+    function ChildContainer(){
+        var gameView = new createjs.Container();//声明一个容器
+        var Rect = new createjs.Shape();
+        Rect.graphics.beginFill('red');
+        Rect.graphics.drawRect(0,0,50,50);
+        Rect.graphics.endFill();
+        var Text = new createjs.Text('hello','30px Arial','blue');
+        gameView.addChild(Rect);
+        gameView.addChild(Text);
+        return gameView;
+    }
+
+    //声明一个子类容器,声明一个实例
+    function ChildContainer2(){
+        var gameView = new createjs.Container();//声明一个容器
+        var circle = new createjs.Shape();
+        circle.graphics.beginFill('green');
+        circle.graphics.drawEllipse(0,0,100,20);//椭圆  坐标100,100    宽100,高20
+        circle.graphics.endFill();
+
+        gameView.addChild(circle);
+
+        return gameView;
+    }
+
+    var x=10;
+    var y=10;
+    var stage = new createjs.Stage('myCanvas');
+    var gameView = new createjs.Container();//声明一个容器
+    stage.addChild(gameView);//舞台装入了一个容器
+
+    var c = ChildContainer();
+    var c2 = ChildContainer2();
+    gameView.addChild(c);//冲入这个子元素
+    gameView.addChild(c2);//冲入这个子元素
+    setInterval(function(){
+        x+=10;
+        y+=10;
+        if(x>100){
+            x=100;
+        }
+        if(y>100){
+            y = 100;
+        }
+        gameView.x = x;
+        gameView.y = y;
+        stage.update();
+        console.log(x);
+        console.log(y);
+    },1000);
+
+
+
+
+
+</script>
