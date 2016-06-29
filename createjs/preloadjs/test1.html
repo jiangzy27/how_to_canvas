@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <style>
+        #myCanvas{
+            width:800px;
+            height: 500px;
+            background: greenyellow;
+        }
+
+    </style>
+    <script src="../lib/preloadjs-0.6.2.min.js"></script>
+    <script src="../lib/easeljs-0.8.2.combined.js"></script>
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+    /*
+     * 有关精灵图的设计，得有ps基础，每张透明小图大小一致，然后拼合成一张大图。
+     * 在使用时，会将大图按照长宽切割，就是frames的配置选项，得出的数量就是count总数。
+     * */
+    var stage = new createjs.Stage('myCanvas');
+    //资源文件列表
+    var manifest = [
+        {src: "sky.png", id: "sky"},
+        {src: "ground.png", id: "ground"},
+        {src: "hill1.png", id: "hill"},
+        {src: "hill2.png", id: "hill2"}
+    ];
+    var loader = new createjs.LoadQueue(false);
+    loader.addEventListener('complete',handleComplete);
+    loader.loadManifest(manifest,true,'./asset/');//资源文件路径
+    //完成后回调函数
+    function handleComplete(){
+        //大地
+        var ground = new createjs.Shape();
+        var groundImg = loader.getResult("ground");
+        ground.graphics.beginBitmapFill(groundImg).drawRect(0,100,800+groundImg.width,groundImg.height);//画图并填充整个屏幕
+        //天空
+        var sky = new createjs.Shape();
+        var skyImg = loader.getResult('sky');
+        sky.graphics.beginBitmapFill(skyImg).drawRect(0,0,800,100);
+        //山1
+        var hill = new createjs.Bitmap(loader.getResult("hill"));
+        hill.x = 20;
+        hill.y = 40;
+        hill.alpha = 0.5;
+        //山2
+        var hill2 = new createjs.Bitmap(loader.getResult("hill2"));
+        hill2.x = 0;
+        hill2.y = 50;
+
+        stage.addChild(ground,sky,hill,hill2);
+        stage.update();
+    }
+
+
+</script>
