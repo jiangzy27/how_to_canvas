@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-NEXT.combined.js"></script>
+    <script src="../lib/tweenjs-NEXT.min.js"></script>
+    <style>
+        #myCanvas{
+            width:800px;
+            height: 500px;
+            background: greenyellow;
+        }
+
+    </style>
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+    /*
+        movie clip视频剪辑：
+        可以添加多个舞台，每个舞台都有自己的动画。
+        参数说明：
+     MovieClip ( [mode=independent]  [startPosition=0]  [loop=true]  [labels=null] )
+     [mode=independent] String optional
+     模式属性的初始值。INDEPENDENT, SINGLE_FRAME, 或者 SYNCHED之中的一个。 默认值是 INDEPENDENT.
+
+     [startPosition=0] Number optional
+     初始值startPosition 所有.
+
+     [loop=true] Boolean optional
+     初始值loop 所有. 默认值是true.
+
+     [labels=null] Object optional
+     一个散列的标签传递给timeline 与此相关的影片剪辑的实例。标签只需要通过如果他们需要使用。
+
+    * */
+    var stage = new createjs.Stage('myCanvas');
+    createjs.Ticker.addEventListener('tick',stage);
+    var mc = new createjs.MovieClip(null, 0, true, {start: 0, middle: 40});
+    stage.addChild(mc);
+    //连写
+    var state1 = new createjs.Shape(
+            new createjs.Graphics().beginFill("#999999")
+                    .drawCircle(50, 50, 50));
+    var state2 = new createjs.Shape(
+            new createjs.Graphics().beginFill("#6699FF")
+                    .drawCircle(100, 100, 50));
+    mc.timeline.addTween(
+            createjs.Tween.get(state1)
+                    .to({x: 0}).to({x: 260}, 40).to({x: 0}, 40));
+    mc.timeline.addTween(
+            createjs.Tween.get(state2)
+                    .to({x: 760}).to({x: 0}, 40).to({x: 260}, 40));
+    mc.gotoAndPlay("middle");
+ </script>
