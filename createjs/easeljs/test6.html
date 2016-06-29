@@ -24,11 +24,14 @@ var stage = new createjs.Stage('myCanvas');
 
 // 定义SpriteSheet
 var ss = new createjs.SpriteSheet({
+    //图片源
+    "images": ["../lib/spritesheet_grant.png"],
+    //动画定义
     "animations":
     {
-        "run": [0, 25, "run"],
-        "jump": [26, 63, "jump"]},
-    "images": ["../lib/spritesheet_grant.png"],
+        "run": [0, 25, "run"],//0-25帧是跑
+        "jump": [26, 63, "jump"]},//26-63是跳
+
     //（框架的大小就是单个帧的图片大小）
     "frames":
     {
@@ -36,7 +39,7 @@ var ss = new createjs.SpriteSheet({
         "width":165,
         "regX": -200,//偏离起始坐标的位置
         "regY": 0,
-        "count": 64
+        "count": 64//总共的帧数，跟图片数相对应
 
     }
 });
@@ -45,16 +48,16 @@ var grant = new createjs.Sprite(ss, "run");
 
 // 把动画放到舞台上，创建一个间隔事件侦听，进行动画
 stage.addChild(grant);
-stage.scaleX = 0.5;
+stage.scaleX = 0.5;//图片缩放
 stage.scaleY = 0.5;
 createjs.Ticker.setFPS(60);
 createjs.Ticker.addEventListener("tick", stage);
 
 stage.addEventListener("stagemousedown", handleJumpStart);
-function handleJumpStart(evt){
+function handleJumpStart(e){
     grant.gotoAndPlay("jump");//切换动画
     setTimeout(function(){
-        grant.gotoAndPlay("run");//切换动画
+        grant.gotoAndPlay("run");//延时切换动画
     },500);
 }
  </script>
