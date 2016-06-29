@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <style>
+        #myCanvas{
+            width:800px;
+            height: 500px;
+            background: greenyellow;
+        }
+
+    </style>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+var stage = new createjs.Stage('myCanvas');
+function bg(){
+    var gameView = new createjs.Container();//声明一个容器
+    var bitmap = new createjs.Bitmap('../lib/bg.jpg');
+
+    gameView.addChild(bitmap);
+    gameView.x = -200;
+    gameView.y = -400;
+    gameView.scaleX = 0.8;
+    gameView.scaleY = 0.8;
+    return gameView;
+}
+// 定义SpriteSheet
+var ss = new createjs.SpriteSheet({
+    //图片源
+    "images": ["../lib/spritesheet_grant.png"],
+    //动画定义
+    "animations":
+    {
+        "run": [0, 25, "run"],//0-25帧是跑
+        "jump": [26, 63, "jump"]},//26-63是跳
+
+    //（框架的大小就是单个帧的图片大小）
+    "frames":
+    {
+        "height": 292,
+        "width":165,
+        "regX": -200,//偏离起始坐标的位置
+        "regY": 0,
+        "count": 64//总共的帧数，跟图片数相对应
+
+    }
+});
+
+var grant = new createjs.Sprite(ss, "run");
+grant.scaleX = 0.3;//图片缩放
+grant.scaleY = 0.3;
+grant.x = 100;//图片位置
+grant.y = 50;
+// 把动画放到舞台上，创建一个间隔事件侦听，进行动画
+stage.addChild(bg());
+stage.addChild(grant);
+
+createjs.Ticker.setFPS(60);
+createjs.Ticker.addEventListener("tick", stage);
+
+stage.addEventListener("stagemousedown", handleJumpStart);
+function handleJumpStart(e){
+    grant.gotoAndPlay("jump");//切换动画
+    setTimeout(function(){
+        grant.gotoAndPlay("run");//延时切换动画
+    },500);
+}
+ </script>
