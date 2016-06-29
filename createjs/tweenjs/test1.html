@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <script src="../lib/tweenjs-0.6.2.min.js"></script>
+    <style>
+        #myCanvas{
+            background: darkred;
+            width:800px;
+            height:500px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+    var stage = new createjs.Stage("myCanvas");
+    function drawShape(){
+        var cont = new createjs.Container();
+        var Rect = new createjs.Shape();
+        Rect.graphics.beginFill('green');
+        Rect.graphics.drawRect(10,10,50,50);
+        cont.addChild(Rect);
+        return cont;
+    }
+
+    var s = drawShape();
+    stage.addChild(s);
+    stage.x = 100;
+    stage.y = 100;
+    createjs.Tween.get(s, {loop: true})
+            .to({rotation: 360, scaleX:0.5, scaleY:0.5}, 1000).to({scaleX:1, scaleY:1}, 1000);
+    createjs.Ticker.setFPS(60);
+    createjs.Ticker.addEventListener("tick", stage);
+</script>
