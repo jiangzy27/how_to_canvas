@@ -20,6 +20,10 @@
 </body>
 </html>
 <script>
+    /*
+    * 有关精灵图的设计，得有ps基础，每张透明小图大小一致，然后拼合成一张大图。
+    * 在使用时，会将大图按照长宽切割，就是frames的配置选项，得出的数量就是count总数。
+    * */
 var stage = new createjs.Stage('myCanvas');
 function bg(){
     var gameView = new createjs.Container();//声明一个容器
