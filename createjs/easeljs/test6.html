@@ -7,9 +7,9 @@
     <title></title>
     <style>
         #myCanvas{
-            width:100%;
-            height: 100%;
-            background: #ccc;
+            width:800px;
+            height: 500px;
+            background: greenyellow;
         }
 
     </style>
@@ -29,6 +29,7 @@ var ss = new createjs.SpriteSheet({
         "run": [0, 25, "run"],
         "jump": [26, 63, "jump"]},
     "images": ["../lib/spritesheet_grant.png"],
+    //（框架的大小就是单个帧的图片大小）:
     "frames":
     {
         "height": 292,
@@ -36,16 +37,24 @@ var ss = new createjs.SpriteSheet({
         "regX": 0,
         "regY": 0,
         "count": 64
+
     }
 });
 
 var grant = new createjs.Sprite(ss, "run");
 
-
 // 把动画放到舞台上，创建一个间隔事件侦听，进行动画
 stage.addChild(grant);
+stage.scaleX = 0.5;
+stage.scaleY = 0.5;
 createjs.Ticker.setFPS(60);
 createjs.Ticker.addEventListener("tick", stage);
 
-
+stage.addEventListener("stagemousedown", handleJumpStart);
+function handleJumpStart(evt){
+    grant.gotoAndPlay("jump");//切换动画
+    setTimeout(function(){
+        grant.gotoAndPlay("run");//切换动画
+    },500);
+}
  </script>
