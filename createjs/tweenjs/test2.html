@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <script src="../lib/tweenjs-0.6.2.min.js"></script>
+    <style>
+        #myCanvas{
+            background: blue;
+            width:800px;
+            height:500px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+    var stage = new createjs.Stage("myCanvas");
+    //绘制一个杂烩整体
+    function drawShapes(){
+        var cont = new createjs.Container();
+        var circle = new createjs.Shape();
+        circle.graphics.beginFill("#FF0000").drawCircle(50, 50, 50);
+        var highlight = new createjs.Shape();
+        highlight.graphics.beginFill("#00FFFF").drawRect(50, 50, 100, 30);
+
+        var txt = new createjs.Text("TweenJS", "bold 20px Arial");
+        txt.textAlign = "center";
+        txt.x = 90;
+        txt.y = 60;
+        cont.addChild(circle,highlight,txt);
+        return cont;
+    }
+    var shape = drawShapes();
+    stage.addChild(shape);
+    //大杂烩一秒大一秒小，有点生硬
+    createjs.Tween.get(shape,{loop:true}).wait(1000).to({scaleX: 0.5, scaleY: 0.5}).wait(1000).to({scaleX: 1, scaleY: 1});
+    createjs.Ticker.setFPS(60);
+    createjs.Ticker.addEventListener("tick", function(){
+        stage.update();
+    });
+</script>
