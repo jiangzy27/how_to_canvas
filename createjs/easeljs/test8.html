@@ -39,20 +39,20 @@
     * */
     var stage = new createjs.Stage('myCanvas');
     createjs.Ticker.addEventListener('tick',stage);
-    var mc = new createjs.MovieClip(null, 0, true, {start: 0, middle: 40});
+    var mc = new createjs.MovieClip(null, 0, true, {start: 80});//开始时间，设定为80，红圈先等蓝圈走完一次后再走。
     stage.addChild(mc);
     //连写
     var state1 = new createjs.Shape(
-            new createjs.Graphics().beginFill("#999999")
+            new createjs.Graphics().beginFill("red")
                     .drawCircle(50, 50, 50));
     var state2 = new createjs.Shape(
-            new createjs.Graphics().beginFill("#6699FF")
+            new createjs.Graphics().beginFill("blue")
                     .drawCircle(100, 100, 50));
     mc.timeline.addTween(
             createjs.Tween.get(state1)
-                    .to({x: 0}).to({x: 260}, 40).to({x: 0}, 40));
+                    .to({x: 0}).to({x: 200}, 40).to({x: 0}, 40));
     mc.timeline.addTween(
             createjs.Tween.get(state2)
-                    .to({x: 760}).to({x: 0}, 40).to({x: 260}, 40));
-    mc.gotoAndPlay("middle");
+                    .to({x: 150}).to({x: 0}, 80).to({x: 150}, 80));
+    mc.gotoAndPlay("start");
  </script>
