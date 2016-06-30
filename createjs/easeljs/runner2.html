@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <script src="../lib/preloadjs-0.6.2.min.js"></script>
+    <style>
+        #myCanvas{
+            width:100%;
+            min-height:500px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+    //loading
+    var stage = new createjs.Stage('myCanvas');
+    var width = stage.canvas.width;
+    var height = stage.canvas.height;
+    var list = [
+        {src:'man.png',id:'man'},
+        {src:'ground.png',id:'ground'},
+        {src:'bg.png',id:'bg'},
+        {src:'high.jpg',id:'high'},
+        {src:'coins.png',id:'coin'}
+
+    ];
+    var loader = new createjs.LoadQueue(false);
+    loader.loadManifest(list,true,'./image/');//资源文件路径
+    loader.addEventListener('complete',handleComplete);
+    function handleComplete(){
+        var manImage = loader.getResult('man');
+        var lowground = loader.getResult('ground');
+        var highground = loader.getResult('high');
+        var bgImage = loader.getResult('bg');
+        var coins = loader.getResult('coin');
+        var sky = new createjs.Shape();
+        sky.graphics.bf(bgImage).drawRect(0,0,width,height);
+        stage.addChild(sky);
+        stage.update();
+
+    }
+
+</script>
