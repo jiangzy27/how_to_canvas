@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>collide</title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <style>
+        #myCanvas{
+            background: #ccc;
+            width:500px;
+            height:500px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas">
+
+</canvas>
+</body>
+</html>
+<script>
+    //about collide
+    //碰撞检测，包括普通的矩形、圆形碰撞检测，以及像素碰撞检测。
+    function checkRectCollide(A, B, C, D, E, F, G, H) {
+
+        // 转为对角线坐标
+        C += A, D += B, G += E, H += F;
+
+        // 没有相交
+        if (C <= E || G <= A || D <= F || H <= B){
+            return false;
+        }
+        else
+            return true;
+
+    }
+    function drawRect(color,x,y,width,height){
+        var cont = new createjs.Container();
+        var rect = new createjs.Shape();
+        rect.graphics.beginFill(color);
+        rect.graphics.drawRect(x,y,width,height);
+        rect.graphics.endFill();
+
+        cont.addChild(rect);
+
+        return cont;
+    }
+    var stage = new createjs.Stage("myCanvas");
+
+    var coord1 = ['blue',50,50,50,50];
+    var coord2 = ['red',50,50,20,20];
+
+
+
+    //console.log(coord1.unshift('blue'));
+    var rect1 = drawRect.apply(null,coord1);
+    var rect2 = drawRect.apply(null,coord2);
+
+    stage.addChild(rect1);
+
+    stage.addChild(rect2);
+
+
+    stage.update();
+    coord1.shift('blue');
+    coord2.shift('red');
+    var coord = [].concat(coord1,coord2);
+    //console.log(coord);
+    var isHit = checkRectCollide.apply(null,coord);
+
+    console.log(isHit);
+
+
+
+
+
+</script>

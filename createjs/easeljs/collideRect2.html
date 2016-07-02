@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>collide</title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <style>
+        #myCanvas{
+            background: #ccc;
+            width:500px;
+            height:500px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas">
+
+</canvas>
+</body>
+</html>
+<script>
+//hitTest(x,y)，参数为目标的坐标，貌似只比较坐标就ok。
+    function drawRect(color,x,y,width,height){
+        var cont = new createjs.Container();
+        var rect = new createjs.Shape();
+        rect.graphics.beginFill(color);
+        rect.graphics.drawRect(x,y,width,height);
+        rect.graphics.endFill();
+
+        cont.addChild(rect);
+        
+        return cont;
+    }
+    var stage = new createjs.Stage("myCanvas");
+
+    var coord1 = ['blue',50,50,50,50];
+    var coord2 = ['red',150,50,20,20];
+
+
+    var rect1 = drawRect.apply(null,coord1);
+    var rect2 = drawRect.apply(null,coord2);
+    stage.addChild(rect1);
+
+    stage.addChild(rect2);
+
+
+    stage.update();
+
+    console.log(rect1.hitTest(150,50));
+
+
+
+
+
+</script>
