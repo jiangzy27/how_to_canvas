@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>collide</title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <style>
+        #myCanvas{
+            background: #ccc;
+            width:100%;
+            height:500px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas">
+
+</canvas>
+</body>
+</html>
+<script>
+    //检测圆圈的碰撞是非常简单的，如图示1.
+    function checkCollide(x1,y1,r1,x2,y2,r2){
+        var dx = x2 - x1;
+        var dy = y2 - y1;
+        var length = Math.sqrt(dx*dx+dy*dy);
+        console.log(dx);console.log(dy);
+        console.log(length);console.log(r1);console.log(r2);
+        if(length > (r2+r1)){
+            return false;
+        }
+        else{
+            return true;
+        }
+
+
+    }
+    function drawArc(color,x,y,r){
+        var cont = new createjs.Container();
+        var rect = new createjs.Shape();
+        rect.graphics.beginFill(color);
+        rect.graphics.drawCircle(x,y,r);
+        rect.graphics.endFill();
+
+        cont.addChild(rect);
+
+        return cont;
+    }
+    var stage = new createjs.Stage("myCanvas");
+
+    var coord1 = ['blue',50,50,50];
+    var coord2 = ['red',150,50,20];
+
+
+    var cir1 = drawArc.apply(null,coord1);
+    var cir2 = drawArc.apply(null,coord2);
+    stage.addChild(cir1);
+
+    stage.addChild(cir2);
+
+
+    stage.update();
+
+    coord1.shift('blue');
+    coord2.shift('red');
+    var coord = [].concat(coord1,coord2);
+    //console.log(coord);
+    var isHit = checkCollide.apply(null,coord);
+
+    console.log(isHit);
+
+
+
+
+
+</script>
