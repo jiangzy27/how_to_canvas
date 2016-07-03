@@ -5,7 +5,7 @@ svg是一堆预定义好的标签的组合使用，比如：
 <circle cx="100" cy="50" r="50" stroke="black" stroke-width="2" fill="green"/>
 ```
 这个circle的标签是预定义的，然后是坐标，半径，填充颜色等，其实跟canvas基本类似，灵活性稍差。
-在html使用时，可以用iframe，object，embed三种标签内嵌使用，在github上查看时，可以直接被解析为图片。
+在html里可以直接当图片使用，在github上查看时，可以直接被解析为图片。
 一个完成的svg图片如下所示：
 
 ```
