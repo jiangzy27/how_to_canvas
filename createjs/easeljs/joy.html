@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <style>
+        #myCanvas{
+            width:800px;
+            height:500px;
+            background: #ccc;
+
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+    /*问题：
+    1.小黄块如何做碰撞检测？
+    2.小黄块移动太慢。
+    3.整体绘制400个图形的方式太low？
+    4.小黄块上升太慢
+    */
+
+    function checkRectCollide(A, B, C, D, E, F, G, H) {
+
+        // 转为对角线坐标
+        C += A, D += B, G += E, H += F;
+
+        // 没有相交
+        if (C <= E || G <= A || D <= F || H <= B){
+            return false;
+        }
+        else
+            return true;
+
+    }
+    function drawRect(x,y,width,height){
+
+        var cont = new createjs.Container();
+        var rect = new createjs.Shape();
+        rect.graphics.beginFill('blue');
+        rect.graphics.drawRect(x,y,width,height);
+        rect.graphics.endFill();
+        cont.addChild(rect);
+        var rect2 = new createjs.Shape();
+        rect2.graphics.beginFill('red');
+        rect2.graphics.drawRect(x,y+100,width,height);
+        rect2.graphics.endFill();
+        cont.addChild(rect2);
+        return cont;
+    }
+    function drawPerson(){
+        var cont = new createjs.Container();
+        var rect = new createjs.Shape();
+        rect.graphics.beginFill('yellow');
+        rect.graphics.drawRect(10,100,10,10);
+        rect.graphics.endFill();
+        cont.addChild(rect);
+        return cont;
+    }
+    var x = 100;
+    var y = 0;
+    var timer1 = null;
+
+    var stage = new createjs.Stage('myCanvas');
+        for(var i=1;i<400;i++){
+
+            stage.addChild(drawRect(x,y,30,80));
+            x+=80;
+        }
+    var p = drawPerson();
+    stage.addChild(p);
+   // stage.update();
+    start();
+    document.addEventListener('keydown',function(e){
+        //console.log(e.keyCode);
+        if(e.keyCode==87){
+
+            p.y-=3;
+
+
+        }
+
+    },false);
+
+    function start(){
+        timer1 = setInterval(function(){
+            p.y+=3;
+            if(p.y>20){
+                p.y=20;
+            }
+        },500);
+        setInterval(function(){
+
+            stage.x-=10;
+            p.x +=10;
+
+            var isHit = checkRectCollide(10,100,10,10,x,y,30,80);
+            console.log(isHit);
+            if(isHit){
+                alert('game over');
+
+            }
+            stage.update();
+
+        },1000);
+    }
+
+
+
+
+
+</script>
