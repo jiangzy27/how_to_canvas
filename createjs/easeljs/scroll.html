@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-0.8.2.combined.js"></script>
+    <style>
+        #myCanvas{
+            width:100%;
+            height:800px;
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas">
+
+</canvas>
+</body>
+</html>
+
+<script>
+    /*
+    * 希望实现的是平缓移动的卷轴效果，但网上暂时没有搜到答案。
+    * 试着自己写，每秒的帧数降低，会让播放速度变慢，监听坐标x值进行重绘，
+    * 不过还是存在卡滞感，跟流畅的卷轴效果仍然有差距。
+    * 还需了解如何引入速度的概念。目前只限于每秒播放的帧数。
+    * */
+function drawImage(x,y){
+    var cont = new createjs.Container();
+    var img = new createjs.Bitmap('bg.png');
+    img.scaleX = 1;
+    img.scaleY = 1;
+    cont.addChild(img);
+    cont.x = x;
+    cont.y = y;
+    return cont;
+}
+    var stage = new createjs.Stage('myCanvas');
+    stage.addChild(drawImage());
+var x = 0;
+var y = 0;
+createjs.Ticker.setFPS(20);
+createjs.Ticker.addEventListener('tick',function(){
+        x-=10;
+        if(x<-800)
+        x=0;
+        stage.addChild(drawImage(x,y));
+        stage.update();
+
+
+});
+</script>
