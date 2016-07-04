@@ -24,10 +24,10 @@
     queue.installPlugin(createjs.Sound);//如果载入声音，必须先注册createjs.Sound
 
     queue.loadFile({id:"sound", src:"./assets/1.mp3"});//载入单个文件
-    queue.on("complete", handleComplete);//载入完成后调用
+
     //载入一个文件列表
     queue.loadManifest([{id: "myimg", src:"./assets/1.jpg"}]);
-
+    queue.on("complete", handleComplete);//载入完成后调用
 
     function handleComplete() {
         createjs.Sound.play("sound");

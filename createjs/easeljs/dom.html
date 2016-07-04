@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <style>
+        #test{
+            width:100px;
+            height:200px;
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="test">aaaa</div>
+</body>
+</html>
+<script>
+    //直接操作dom元素
+    var rect = new createjs.DOMElement('test');
+    rect.htmlElement.style.backgroundColor='red';//改变dom背景颜色
+</script>

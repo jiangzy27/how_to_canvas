@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>当前鼠标的位置坐标是否与stage中的一个图形Shape发生碰撞</title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <style>
+        #myCanvas{
+            width:800px;
+            height:600px;
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+    var stage = new createjs.Stage('myCanvas');
+    var circle = new createjs.Shape();
+    circle.graphics.beginFill('red').drawCircle(100,100,50);
+    createjs.Ticker.setFPS(60);
+    createjs.Ticker.addEventListener('tick',handleTick);
+    stage.addChild(circle);
+    function handleTick(){
+        circle.alpha = 0.2;
+        if(circle.hitTest(stage.mouseX,stage.mouseY)){
+            //如果圆圈跟鼠标的位置碰撞
+            circle.alpha = 1;
+        }
+        stage.update();
+    }
+</script>
