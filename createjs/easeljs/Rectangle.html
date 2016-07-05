@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-0.8.2.combined.js"></script>
+    <style>
+        #myCanvas{
+            width:800px;
+            height:600px;
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+    //切片和遮罩
+    var stage = new createjs.Stage('myCanvas');
+    var bg = new createjs.Bitmap('./image/bg.png');
+    //切片
+    //var rect = new createjs.Rectangle(100,100,50,50);//坐标，宽和高
+    //bg.sourceRect = rect;
+    //遮罩
+    var shape = new createjs.Shape();
+    shape.graphics.beginFill('#000').drawCircle(0,0,50);
+    shape.x = 100;
+    shape.y = 100;
+    bg.mask = shape;
+    stage.addChild(bg);
+    createjs.Ticker.setFPS(60);
+    createjs.Ticker.addEventListener('tick',stage);
+
+</script>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <script src="../lib/tweenjs-0.6.2.min.js"></script>
+    <style>
+        #myCanvas{
+            width:100%;
+            height:800px;
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+    //给图片添加滤镜和图片的cache方法
+    window.onload = init();
+    var img;
+    function init(){
+        img = new Image();
+        img.onload = handleImage;
+        img.src='1.jpg';
+    }
+    function handleImage(){
+        var stage = new createjs.Stage('myCanvas');
+        var bg = new createjs.Bitmap('./1.jpg');
+        console.log(bg.getBounds().width);//这里需要注意：一定要等图片加载完才可以打印出宽高值，否则都是空值！
+        var blur = new createjs.BlurFilter(5,5,1);
+        bg.filters = [blur];
+        bg.cache(0,0,bg.getBounds().width,bg.getBounds().height);
+        /*
+         * 做完这些后发现并不能使图像变模糊，这里还有非常重要的一步，
+         * 调用图像的cache()方法。
+         * 因为给图片添加Filter后如果stage立刻刷新，
+         * 则Filter只能保持一帧的效果，
+         * 而使用图片的cache()方法后，
+         * 才可以使得无论舞台怎么刷新，
+         * 都可以保持住Filter的效果，
+         * 添加cache还有很多作用，可以提高FPS等，
+         * 在官方提供的示例中，
+         * Demo4 caching就是一个使用cache()的例子，
+         * 在这里想让Filter显示，只需要再加一句：
+         bg.cache(0,0,bg.image.width,bg.image.height);
+         * */
+
+
+        stage.addChild(bg);
+
+        createjs.Ticker.setFPS(60);
+        createjs.Ticker.addEventListener('tick',stage);
+        setTimeout(function(){
+            bg.uncache();//5s后清除缓存图片，图片重新变清晰啦
+        },5000);
+    }
+
+
+
+
+ </script>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <style>
+        #myCanvas{
+            background:#ccc;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+    //regX和regY相当于坐标原点的偏移。如下例子所示，如果坐标原点从（0,0）偏移到（20,20），那画出来的图肯定变小了。
+    //这个偏移点是根据圆形的起始坐标开始的。
+    var stage = new createjs.Stage("myCanvas");
+    var circle = new createjs.Shape();
+    circle.graphics.beginFill('blue').drawCircle(0,0,50);
+    circle.regX = circle.regY = 20;
+    stage.addChild(circle);
+    stage.update();
+</script>
