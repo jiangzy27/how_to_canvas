@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <script src="../lib/tweenjs-0.6.2.min.js"></script>
+    <style>
+        #myCanvas{
+            width:100%;
+            height:800px;
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script>
+    var stage = new createjs.Stage('myCanvas');
+    var bg = new createjs.Bitmap('./image/bg.png');
+    //alert(bg.height);
+    var shape = new createjs.Shape();
+    shape.graphics.beginFill('#000').drawCircle(0,0,100);
+    shape.x = 100;
+    shape.y = 100;
+    bg.mask = shape;
+    stage.addChild(bg);
+    createjs.Ticker.setFPS(60);
+    createjs.Ticker.addEventListener('tick',update);
+    function update(){
+        shape.x +=5;
+        if(shape.x >600){
+            shape.x = 0;
+        }
+        stage.update();
+    }
+</script>
