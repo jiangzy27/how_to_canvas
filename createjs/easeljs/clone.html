@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+</head>
+<body>
+<canvas id="myCanvas" width="600px" height="600px"></canvas>
+</body>
+</html>
+<script>
+
+    var shape = new createjs.Shape().set({x:100,y:100});
+    shape.graphics.beginFill('#ff0000').drawCircle(0,0,50);
+    var shapeClone = shape.clone();
+    shapeClone.x = 0;
+    shapeClone.y = 0;
+    var stage = new createjs.Stage('myCanvas');
+    stage.addChild(shape,shapeClone);
+
+    createjs.Ticker.setFPS(60);
+    createjs.Ticker.addEventListener('tick',stage);
+
+</script>
