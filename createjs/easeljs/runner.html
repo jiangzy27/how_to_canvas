@@ -16,7 +16,7 @@
     <script src="../lib/easeljs-0.8.2.min.js"></script>
 </head>
 <body>
-<canvas id="myCanvas"></canvas>
+<canvas id="myCanvas" width="800px" height="600px"></canvas>
 </body>
 </html>
 <script>
@@ -30,10 +30,7 @@ function bg(){
     var bitmap = new createjs.Bitmap('../lib/bg.jpg');
 
     gameView.addChild(bitmap);
-    gameView.x = -200;
-    gameView.y = -400;
-    gameView.scaleX = 0.8;
-    gameView.scaleY = 0.8;
+
     return gameView;
 }
 // 定义SpriteSheet
@@ -62,7 +59,7 @@ var grant = new createjs.Sprite(ss, "run");
 grant.scaleX = 0.3;//图片缩放
 grant.scaleY = 0.3;
 grant.x = 100;//图片位置
-grant.y = 50;
+grant.y = 450;
 // 把动画放到舞台上，创建一个间隔事件侦听，进行动画
 stage.addChild(bg());
 stage.addChild(grant);
