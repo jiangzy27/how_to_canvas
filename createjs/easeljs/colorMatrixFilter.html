@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+</head>
+<body>
+    <canvas id="myCanvas" width="600px" height="600px"></canvas>
+</body>
+</html>
+<script>
+    /*调整准确颜色，饱和度等调整。
+    * */
+    //matrix:矩阵
+    //hue:色调
+    //saturation:饱和度
+    //brightness:亮度
+    //contrast:对比度
+    /*ColorMatrix ( brightness  contrast  saturation  hue )
+     定义 ColorMatrix:41
+     参数:
+
+     亮度 Number
+     对比 Number
+     饱和 Number
+     色调 Number
+    *
+    * */
+    var matrix = new createjs.ColorMatrix().adjustColor(150,10,100,120);
+    var shape = new createjs.Shape().set({x:100,y:100});
+    shape.graphics.beginFill('#ff0000').drawCircle(0,0,50);
+    shape.filters = [new createjs.ColorMatrixFilter(matrix)];
+
+    shape.cache(-50,-50,100,100);
+    var stage = new createjs.Stage('myCanvas');
+    stage.addChild(shape);
+
+    createjs.Ticker.setFPS(60);
+    createjs.Ticker.addEventListener('tick',stage);
+    setTimeout(function(){
+        shape.uncache();
+    },5000);
+</script>

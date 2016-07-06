@@ -104,6 +104,11 @@
     }
     function onPieceClick(e){
         var piece = e.target;
+        //点击的时候，颜色变化，知道是选中状态。
+        var matrix = new createjs.ColorMatrix().adjustColor(15,10,100,180);
+        piece.filters=[new createjs.ColorMatrixFilter(matrix)];
+        piece.cache(0,0,PUZZLE_SIZE,PUZZLE_SIZE2);
+
         selectedPieces.push(piece);
         if(selectedPieces.length ===2){
             evalSelectedPieces();
@@ -119,6 +124,9 @@
         });
     }
     function evalPuzzle(){
+        //交换完毕后，还原本来的颜色
+        selectedPieces[0].uncache();
+        selectedPieces[1].uncache();
         var win = true;
         for(var i=0;i<pieces.length;i++){
            var  piece = pieces[i];
