@@ -124,6 +124,7 @@ var gold = new createjs.Sprite(marioSheet,"gold");
 
 ```
 >如何把所有图片合成到一个大图？
+
 可以用photoshop，还有一个软件，叫做TexturePacker，网址：https://www.codeandweb.com/texturepacker
 <img src="./read/demo3.jpg" />
 
@@ -135,6 +136,7 @@ var gold = new createjs.Sprite(marioSheet,"gold");
 把需要的部分复制出来，让构建SpriteSheet变非常简单。（其实可以使用preloadJS直接载入这个json文件）
 
 >如何获取一个连续动作的图片？
+
 CreateJS官方提供的工具中，使用zoe工具可以把flash文件转变为sprite（这就是亲儿子的力量）。
 最妙的是，同TexturePacker一样，使用zoe转化后，你将获得一个所有连续动作组成的大图，和一个json数据。
 
