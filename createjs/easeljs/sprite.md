@@ -91,7 +91,7 @@ stage.addChild(sprite);
 var data2 = {
                 "images":["./mario.png"],
                 "frames":[
-                    [2, 2, 32, 32],
+                    [2, 2, 32, 32],// x, y, width, height, imageIndex
                     [34, 2, 32, 32],
                     [66, 2, 32, 32],
                     [100, 2, 32, 32],
