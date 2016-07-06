@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>拼图游戏</title>
+    <script src="../../lib/easeljs-0.8.2.min.js"></script>
+    <script src="../../lib/tweenjs-0.6.2.min.js"></script>
+    <style>
+        #myCanvas{
+            width:600px;
+            height:600px;
+            background: #ccc;
+        }
+        .info{
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="info">点击两块碎片，进行位置互换</div>
+<canvas id="myCanvas" width="600px" height="600px"></canvas>
+</body>
+</html>
+<script>
+    /*
+    *
+    * */
+    window.onload = initImage();
+    var img;
+    function initImage(){
+        img = new Image();
+        img.onload = handleImage;
+        img.src='cut.jpg';
+
+    }
+    function handleImage(){
+        init();
+
+    }
+    //600px图片，切为20块，每块长120px，高150px
+    var PUZZLE_COLUMNS =5;
+    var PUZZLE_ROWS =4;
+    var PUZZLE_SIZE = 120;
+    var PUZZLE_SIZE2 = 150;
+    var stage;
+    var pieces = [];
+    var selectedPieces = [];
+
+    function init(){
+        stage = new createjs.Stage('myCanvas');
+        buildPuzzle();//导入图片并分割为15片
+        startGame();//开始游戏
+        setTimeout(shufflePuzzle,2000);//两秒打乱图片顺序
+    }
+    function  buildPuzzle(){
+        var piece;
+        var len = PUZZLE_COLUMNS*PUZZLE_ROWS;
+        var col = 0;
+        var row = 0;
+        //按照先列再行的方式切片。
+        for(var i=0;i<len;i++){
+            piece = new createjs.Bitmap(img);
+            //切片图像
+
+            piece.sourceRect = new createjs.Rectangle(col * PUZZLE_SIZE, row * PUZZLE_SIZE2, PUZZLE_SIZE, PUZZLE_SIZE2);
+            //自己设定的变量，表示现在的坐标点
+            piece.homePoint = {x: col * PUZZLE_SIZE, y: row * PUZZLE_SIZE2};
+            console.log(piece);
+            piece.x = piece.homePoint.x;
+            piece.y = piece.homePoint.y;
+            stage.addChild(piece);//将碎片冲入舞台
+            pieces[i] = piece;//装入数组中
+            col++;//列自增
+            if(col == PUZZLE_COLUMNS){
+                //如果列达到峰值，就自增行
+                col=0;
+                row++;
+            }
+        }
+       // console.log(pieces);
+
+    }
+//随机取出一片来，顺序从开始一片一片的放。
+    function shufflePuzzle(){
+        var i,piece,randomIndex;
+        var col = 0;
+        var row = 0;
+
+        var p = [].concat(pieces);//存一份出来，用于splice切片，splice会改变原数组结构
+        var len = p.length;
+        for(i=0;i<len;i++){
+            randomIndex = Math.floor(Math.random()* p.length);
+            piece = p[randomIndex];
+            p.splice(randomIndex,1);//切除这一片
+            createjs.Tween.get(piece).to({x:col*PUZZLE_SIZE,y:row*PUZZLE_SIZE2},200);
+            piece.addEventListener('click',onPieceClick);
+            col++;
+            if(col==PUZZLE_COLUMNS){
+                col = 0;
+                row++;
+            }
+
+        }
+    }
+    function onPieceClick(e){
+        var piece = e.target;
+        selectedPieces.push(piece);
+        if(selectedPieces.length ===2){
+            evalSelectedPieces();
+        }
+    }
+    function evalSelectedPieces(){
+        var piece1 = selectedPieces[0];
+        var piece2 = selectedPieces[1];
+        //交换坐标
+        createjs.Tween.get(piece1).wait(300).to({x:piece2.x, y:piece2.y},200);
+        createjs.Tween.get(piece2).wait(300).to({x:piece1.x, y:piece1.y},200).call(function(){
+            setTimeout(evalPuzzle, 200);
+        });
+    }
+    function evalPuzzle(){
+        var win = true;
+        for(var i=0;i<pieces.length;i++){
+           var  piece = pieces[i];
+            if(piece.x != piece.homePoint.x || piece.y != piece.homePoint.y){
+                win = false;
+                break;
+            }
+        }
+        if(win){
+            setTimeout(function(){
+                alert('you win');
+            },200);
+        }else{
+            selectedPieces = [];
+        }
+    }
+
+    function startGame() {
+        createjs.Ticker.setFPS(60);
+        createjs.Ticker.addEventListener('tick', function () {
+            stage.scaleX = 1;
+            stage.scaleY = 1;
+            stage.update();
+        });
+    }
+</script>
