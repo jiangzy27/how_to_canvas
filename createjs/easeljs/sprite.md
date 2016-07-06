@@ -38,6 +38,8 @@ animations: {
         }
 
 ```
+
+<img src="./read/demo1.jpg" />
 以官方奔跑的小人为例，代码是这样的：
 ```
 var data = {
