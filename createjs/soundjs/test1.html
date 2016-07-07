@@ -10,9 +10,13 @@
 </body>
 </html>
 <script>
+    //挂载事件，等待文件load成功后，回调
     createjs.Sound.addEventListener("fileload", handleLoadComplete);
+    //注册声音
     createjs.Sound.registerSound('./assets/1.mp3','mysound');
+
     function handleLoadComplete(event) {
+        //播放
         createjs.Sound.play("mysound");
     }
 </script>

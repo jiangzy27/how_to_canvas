@@ -19,7 +19,9 @@
 </body>
 </html>
 <script>
+    //结合preloadjs使用。注册声音插件，加载声音文件和图片，完成后：播放声音与画出图片。
     var stage = new createjs.Stage('myCanvas');
+    //preloadjs的方法。
     var queue = new createjs.LoadQueue(false);//本地开发使用false即可
     queue.installPlugin(createjs.Sound);//如果载入声音，必须先注册createjs.Sound
 
