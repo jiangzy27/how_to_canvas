@@ -25,6 +25,7 @@
     stage.addChild(circle);
     function handleTick(){
         circle.alpha = 0.2;
+        //帧在播放时，不断的检测mouse的位置，如果mouse的位置跟圆圈重合，就会改变alpha值。
         if(circle.hitTest(stage.mouseX,stage.mouseY)){
             //如果圆圈跟鼠标的位置碰撞
             circle.alpha = 1;
