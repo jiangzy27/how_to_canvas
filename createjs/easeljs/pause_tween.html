@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>点击暂停效果</title>
+    <script src="../lib/easeljs-0.8.2.min.js"></script>
+    <script src="../lib/tweenjs-0.6.2.min.js"></script>
+</head>
+<body>
+    <canvas id="myCanvas" width="600px" height="600px"></canvas>
+</body>
+</html>
+<script>
+    var stage,circle;
+    //init();
+    function init(){
+        stage = new createjs.Stage('myCanvas');
+        circle = new createjs.Shape();
+        circle.graphics.beginFill('red').drawCircle(0,0,50);
+        circle.x = 50;
+        circle.y = 50;
+        stage.addChild(circle);
+        createjs.Ticker.setFPS(60);
+        createjs.Ticker.addEventListener('tick',handleTick);
+
+        circle.addEventListener('click',function(){
+            //设置连续播放帧的停止
+            createjs.Ticker.setPaused(!createjs.Ticker.getPaused());
+        });
+    }
+    function handleTick(event){
+        console.log(event.paused);
+        if(!event.paused){
+            circle.x +=5;
+            if(circle.x > 200){
+                circle.x = 0;
+            }
+        }
+        stage.update();
+    }
+/*每个时间周期，circle的x+5，
+很自然circle就会在页面上从左到右的移动，
+可以给circle添加一个鼠标点击事件让动画暂停运行，当鼠标按下，
+使用createjs.Ticker.getPaused()获取当前运行状态，
+并使用setPaused做成相反的赋值，
+参数event的paused属性作为动画开关，点击就可以暂停。
+*event参数还包含了其他重要的属性，比如使用event.delta可以获取刷新的时间间隔。
+* 既然用Ticker可以完成动画，TweenJS又有什么作用呢？
+ 使用TweenJS可以帮助开发者创建较复杂的动画效果，
+ 以及通过设置CSS来实现CSS动画，在Ticker动画中，
+ 完成一个直线运动的例子比较简单，如果要是想比较复杂的动画效果，
+ 比如让小球在桌面方形轨迹运动，或实现小球碰到墙之后的弹力效果，
+ 使用Ticker实现起来就比较复杂（当然也可以通过一些Math函数，实现一些复杂的运动轨迹）。
+ 先从上面的例子开始，让小球在屏幕上来回移动，使用TweenJS来实现的只需要：
+**/
+ init2();
+ function init2(){
+    stage = new createjs.Stage("myCanvas");
+    createjs.Ticker.setFPS(60);
+    createjs.Ticker.addEventListener('tick',handleTick2);
+    circle = new createjs.Shape();
+    circle.graphics.beginFill('blue').drawCircle(0,0,20);
+    circle.x = 0;
+    circle.y = 30;
+    stage.addChild(circle);
+    createjs.Tween.get(circle,{loop:true}).to({x:300},2000);
+}
+    function handleTick2(){
+        stage.update();
+    }
+/*调用方式：
+ createjs.Tween.get().wait().to().call();
+*最后一个call，可以调用一个回调函数，表示动画做完了还能最后处理一件事。
+*get是获取动画对象，loop参数表示不断重复这个动作，to就是过渡的行为。
+* */
+</script>
